@@ -19,6 +19,7 @@ SYSTEM_PKGS=(
     libgl1
     libglib2.0-0
     scrot
+    gnome-screenshot
     xvfb
     x11-utils
     software-properties-common
@@ -74,6 +75,9 @@ if ! grep -qF "$MARKER" "${HOME}/.bashrc" 2>/dev/null; then
 # >>> agent-s cloud env >>>
 # Auto-activate the project virtualenv and provide a virtual display for the GUI stack.
 export DISPLAY="${DISPLAY:-:99}"
+# pyscreeze (used by pyautogui) selects the installed `scrot`/`gnome-screenshot`
+# screenshot backend only when the session type is known; default it to x11.
+export XDG_SESSION_TYPE="${XDG_SESSION_TYPE:-x11}"
 if [ -f "$HOME/.venv/bin/activate" ]; then
     . "$HOME/.venv/bin/activate"
 fi
